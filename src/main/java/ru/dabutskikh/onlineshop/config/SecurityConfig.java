@@ -37,10 +37,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         return new InMemoryUserDetailsManager(
                 User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build()
+                        .username("admin")
+                        .password(passwordEncoder().encode("admin"))
+                        .roles(Role.ADMIN.name())
+                        .build(),
+                User.builder()
+                        .username("user")
+                        .password(passwordEncoder().encode("user"))
+                        .roles(Role.USER.name())
+                        .build()
         );
     }
 
