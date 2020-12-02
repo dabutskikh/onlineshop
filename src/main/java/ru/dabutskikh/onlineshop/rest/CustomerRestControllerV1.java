@@ -1,9 +1,6 @@
 package ru.dabutskikh.onlineshop.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.dabutskikh.onlineshop.model.Customer;
 
 import java.util.List;
@@ -31,5 +28,16 @@ public class CustomerRestControllerV1 {
                 .filter(customer -> customer.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @PostMapping
+    public Customer create(@RequestBody Customer customer) {
+        CUSTOMERS.add(customer);
+        return customer;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        CUSTOMERS.removeIf(customer -> customer.getId().equals(id));
     }
 }
